@@ -1,7 +1,7 @@
 package helpers
 
 import (
-	"math/rand"
+	"github.com/cosmos/cosmos-sdk/simapp/rand"
 	"time"
 
 	"github.com/cosmos/cosmos-sdk/client"

@@ -3,7 +3,7 @@ package simulation
 import (
 	"fmt"
 	"io"
-	"math/rand"
+	"github.com/cosmos/cosmos-sdk/simapp/rand"
 	"os"
 	"os/signal"
 	"syscall"
@@ -59,7 +59,17 @@ func SimulateFromSeed(
 	testingMode, _, b := getTestingMode(tb)
 
 	fmt.Fprintf(w, "Starting SimulateFromSeed with randomness created with seed %d\n", int(config.Seed))
-	r := rand.New(rand.NewSource(config.Seed))
+	var r *rand.Rand
+	if config.Guide != "" {
+		r = rand.NewGuided(rand.NewSource(config.Seed), config.Guide)
+		defer func() {
+			if r.Interactive {
+				fmt.Printf("COVERAGE %g\n", testing.Coverage())
+			}
+		}()
+	} else {
+		r = rand.New(rand.NewSource(config.Seed))
+	}
 	params := RandomParams(r)
 	fmt.Fprintf(w, "Randomized simulation params: \n%s\n", mustMarshalJSONIndent(params))
 

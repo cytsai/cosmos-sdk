@@ -3,7 +3,7 @@ package params
 import (
 	"context"
 	"encoding/json"
-	"math/rand"
+	"github.com/cosmos/cosmos-sdk/simapp/rand"
 
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 

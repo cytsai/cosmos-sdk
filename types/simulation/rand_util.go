@@ -3,7 +3,7 @@ package simulation
 import (
 	"errors"
 	"math/big"
-	"math/rand"
+	"github.com/cosmos/cosmos-sdk/simapp/rand"
 	"time"
 	"unsafe"
 
@@ -47,7 +47,7 @@ func RandPositiveInt(r *rand.Rand, max sdk.Int) (sdk.Int, error) {
 
 	max = max.Sub(sdk.OneInt())
 
-	return sdk.NewIntFromBigInt(new(big.Int).Rand(r, max.BigInt())).Add(sdk.OneInt()), nil
+	return sdk.NewIntFromBigInt(new(big.Int).Rand(r.GetMathRand(), max.BigInt())).Add(sdk.OneInt()), nil
 }
 
 // RandomAmount generates a random amount
@@ -61,7 +61,7 @@ func RandomAmount(r *rand.Rand, max sdk.Int) sdk.Int {
 	case 1:
 		randInt = max.BigInt()
 	default: // NOTE: there are 10 total cases.
-		randInt = big.NewInt(0).Rand(r, max.BigInt()) // up to max - 1
+		randInt = big.NewInt(0).Rand(r.GetMathRand(), max.BigInt()) // up to max - 1
 	}
 
 	return sdk.NewIntFromBigInt(randInt)
@@ -78,7 +78,7 @@ func RandomDecAmount(r *rand.Rand, max sdk.Dec) sdk.Dec {
 	case 1:
 		randInt = max.BigInt() // the underlying big int with all precision bits.
 	default: // NOTE: there are 10 total cases.
-		randInt = big.NewInt(0).Rand(r, max.BigInt())
+		randInt = big.NewInt(0).Rand(r.GetMathRand(), max.BigInt())
 	}
 
 	return sdk.NewDecFromBigIntWithPrec(randInt, sdk.Precision)

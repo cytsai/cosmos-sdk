@@ -2,7 +2,7 @@ package simulation
 
 import (
 	"encoding/json"
-	"math/rand"
+	"github.com/cosmos/cosmos-sdk/simapp/rand"
 	"sort"
 
 	"github.com/cosmos/cosmos-sdk/types/simulation"

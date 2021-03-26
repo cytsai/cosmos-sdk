@@ -21,4 +21,5 @@ type Config struct {
 
 	OnOperation   bool // run slow invariants every operation
 	AllInvariants bool // print all failed invariants if a broken invariant is found
+	Guide string // file of or named pipe for random numbers generated outside of the SDK
 }

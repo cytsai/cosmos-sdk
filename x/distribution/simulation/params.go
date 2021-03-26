@@ -4,7 +4,7 @@ package simulation
 
 import (
 	"fmt"
-	"math/rand"
+	"github.com/cosmos/cosmos-sdk/simapp/rand"
 
 	"github.com/cosmos/cosmos-sdk/x/simulation"
 

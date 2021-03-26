@@ -2,7 +2,7 @@ package simulation_test
 
 import (
 	"encoding/json"
-	"math/rand"
+	"github.com/cosmos/cosmos-sdk/simapp/rand"
 	"testing"
 	"time"
 

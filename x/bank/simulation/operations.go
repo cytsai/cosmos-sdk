@@ -1,7 +1,7 @@
 package simulation
 
 import (
-	"math/rand"
+	"github.com/cosmos/cosmos-sdk/simapp/rand"
 
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/codec"

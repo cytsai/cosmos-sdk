@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"math"
-	"math/rand"
+	"github.com/cosmos/cosmos-sdk/simapp/rand"
 
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 

@@ -22,6 +22,7 @@ var (
 	FlagCommitValue             bool
 	FlagOnOperationValue        bool // TODO: Remove in favor of binary search for invariant violation
 	FlagAllInvariantsValue      bool
+	FlagGuide                   string
 
 	FlagEnabledValue     bool
 	FlagVerboseValue     bool
@@ -46,6 +47,7 @@ func GetSimulatorFlags() {
 	flag.BoolVar(&FlagCommitValue, "Commit", false, "have the simulation commit")
 	flag.BoolVar(&FlagOnOperationValue, "SimulateEveryOperation", false, "run slow invariants every operation")
 	flag.BoolVar(&FlagAllInvariantsValue, "PrintAllInvariants", false, "print all invariants if a broken invariant is found")
+	flag.StringVar(&FlagGuide, "Guide", "", "File of or named pipe for random numbers generated outside of the SDK")
 
 	// simulation flags
 	flag.BoolVar(&FlagEnabledValue, "Enabled", false, "enable the simulation")
@@ -71,5 +73,6 @@ func NewConfigFromFlags() simulation.Config {
 		Commit:             FlagCommitValue,
 		OnOperation:        FlagOnOperationValue,
 		AllInvariants:      FlagAllInvariantsValue,
+		Guide:              FlagGuide,
 	}
 }

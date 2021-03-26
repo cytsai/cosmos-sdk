@@ -1,7 +1,7 @@
 package types_test
 
 import (
-	"math/rand"
+	"github.com/cosmos/cosmos-sdk/simapp/rand"
 	"sort"
 	"testing"
 
