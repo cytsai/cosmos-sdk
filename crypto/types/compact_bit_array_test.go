@@ -2,7 +2,7 @@ package types
 
 import (
 	"encoding/json"
-	"math/rand"
+	"github.com/cosmos/cosmos-sdk/rand"
 	"testing"
 
 	"github.com/stretchr/testify/assert"

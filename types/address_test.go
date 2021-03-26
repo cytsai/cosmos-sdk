@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/hex"
 	"fmt"
-	"math/rand"
+	"github.com/cosmos/cosmos-sdk/rand"
 	"strings"
 	"testing"
 

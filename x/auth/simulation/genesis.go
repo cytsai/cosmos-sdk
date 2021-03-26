@@ -3,7 +3,7 @@ package simulation
 import (
 	"encoding/json"
 	"fmt"
-	"math/rand"
+	"github.com/cosmos/cosmos-sdk/rand"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"

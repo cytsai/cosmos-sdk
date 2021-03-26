@@ -2,7 +2,7 @@ package types
 
 import (
 	"math/big"
-	"math/rand"
+	"github.com/cosmos/cosmos-sdk/rand"
 	"testing"
 
 	"github.com/stretchr/testify/suite"

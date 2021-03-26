@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"math/rand"
+	"github.com/cosmos/cosmos-sdk/rand"
 	"os"
 	"strings"
 	"sync"

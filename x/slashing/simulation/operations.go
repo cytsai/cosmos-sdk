@@ -2,7 +2,7 @@ package simulation
 
 import (
 	"errors"
-	"math/rand"
+	"github.com/cosmos/cosmos-sdk/rand"
 
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/codec"

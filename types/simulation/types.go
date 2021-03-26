@@ -2,7 +2,7 @@ package simulation
 
 import (
 	"encoding/json"
-	"math/rand"
+	"github.com/cosmos/cosmos-sdk/rand"
 	"time"
 
 	"github.com/cosmos/cosmos-sdk/baseapp"

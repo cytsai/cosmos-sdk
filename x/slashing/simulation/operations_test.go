@@ -1,7 +1,7 @@
 package simulation_test
 
 import (
-	"math/rand"
+	"github.com/cosmos/cosmos-sdk/rand"
 	"testing"
 	"time"
 

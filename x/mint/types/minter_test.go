@@ -1,7 +1,7 @@
 package types
 
 import (
-	"math/rand"
+	"github.com/cosmos/cosmos-sdk/rand"
 	"testing"
 
 	"github.com/stretchr/testify/require"

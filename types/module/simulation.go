@@ -3,7 +3,7 @@ package module
 import (
 	"encoding/json"
 
-	"math/rand"
+	"github.com/cosmos/cosmos-sdk/rand"
 	"time"
 
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -76,7 +76,7 @@ func (sm *SimulationManager) GenerateGenesisStates(simState *SimulationState) {
 // GenerateParamChanges generates randomized contents for creating params change
 // proposal transactions
 func (sm *SimulationManager) GenerateParamChanges(seed int64) (paramChanges []simulation.ParamChange) {
-	r := rand.New(rand.NewSource(seed))
+	r := rand.NewGuided(rand.NewSource(seed))
 
 	for _, module := range sm.Modules {
 		paramChanges = append(paramChanges, module.RandomizedParams(r)...)

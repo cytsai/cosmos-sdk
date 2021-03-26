@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
-	"math/rand"
+	"github.com/cosmos/cosmos-sdk/rand"
 	"time"
 
 	tmjson "github.com/tendermint/tendermint/libs/json"

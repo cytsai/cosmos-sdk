@@ -2,7 +2,7 @@ package simulation
 
 import (
 	"fmt"
-	"math/rand"
+	"github.com/cosmos/cosmos-sdk/rand"
 
 	gogotypes "github.com/gogo/protobuf/types"
 

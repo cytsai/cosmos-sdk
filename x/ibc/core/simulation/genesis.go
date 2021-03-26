@@ -5,7 +5,7 @@ package simulation
 import (
 	"encoding/json"
 	"fmt"
-	"math/rand"
+	"github.com/cosmos/cosmos-sdk/rand"
 
 	"github.com/cosmos/cosmos-sdk/types/module"
 	clientsims "github.com/cosmos/cosmos-sdk/x/ibc/core/02-client/simulation"

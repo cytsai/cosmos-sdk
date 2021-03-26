@@ -2,7 +2,7 @@ package keeper // noalias
 
 import (
 	"bytes"
-	"math/rand"
+	"github.com/cosmos/cosmos-sdk/rand"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/staking/types"
