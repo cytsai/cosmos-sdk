@@ -1,26 +1,34 @@
 package rand
 
 import (
-        //"fmt"
-	//"runtime"
+        "fmt"
+	"runtime"
         mathrand "math/rand"
 )
 
-// Intn 56
-// Int63 6
-// Int63n 9
-// Float64 4
-// Perm 2
+func trace() {
+	pc := make([]uintptr, 20)
+	n := runtime.Callers(2, pc) - 2
+	frames := runtime.CallersFrames(pc[:n])
+	for {
+		frame, more := frames.Next()
+		//fmt.Printf("%d %s %s %d\n", frame.PC, frame.Function, frame.File, frame.Line)
+		fmt.Printf("%d %s\n", frame.PC, frame.Function)
+		if !more {
+			break
+		}
+	}
+	fmt.Printf("========================================\n")
+}
+
 
 func (r *Rand) Intn(n int) int {
-	/*r.counter += 1
-	if (r.counter % 1000) == 0 {
-		fmt.Println("\n", r.counter, "\n")
-	}*/
-	//PCs := make([]uintptr, 16)
-	//N := runtime.Callers(2, PCs)
-	//fmt.Println(n, N, PCs)
-        return r.base.Intn(n)
+	rand := r.base.Intn(n)
+	if r.guided {
+		fmt.Printf("%d %d\n", rand, n)
+		trace()
+	}
+	return rand
 }
 
 func (r *Rand) Int63() int64 {
@@ -50,7 +58,7 @@ func (r *Rand) GetMathRand() *mathrand.Rand {
 type Rand struct {
 	base    *mathrand.Rand
 	guided  bool
-	counter int
+	Counter map[[16]uintptr]int
 }
 
 type Source    = mathrand.Source
@@ -64,9 +72,9 @@ var  Uint64    = mathrand.Uint64
 var  Shuffle   = mathrand.Shuffle
 
 func New(src Source) *Rand {
-	return &Rand{mathrand.New(src), false, 0}
+	return &Rand{base: mathrand.New(src)}
 }
 
 func NewGuided(src Source) *Rand {
-	return &Rand{mathrand.New(src), true, 0}
+	return &Rand{base: mathrand.New(src), guided: true, Counter: make(map[[16]uintptr]int)}
 }

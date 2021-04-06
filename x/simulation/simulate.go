@@ -59,7 +59,12 @@ func SimulateFromSeed(
 	testingMode, _, b := getTestingMode(tb)
 
 	fmt.Fprintf(w, "Starting SimulateFromSeed with randomness created with seed %d\n", int(config.Seed))
-	r := rand.NewGuided(rand.NewSource(config.Seed))
+	var r *rand.Rand
+	if config.Guided {
+		r = rand.NewGuided(rand.NewSource(config.Seed))
+	} else {
+		r = rand.New(rand.NewSource(config.Seed))
+	}
 	params := RandomParams(r)
 	fmt.Fprintf(w, "Randomized simulation params: \n%s\n", mustMarshalJSONIndent(params))
 
@@ -236,6 +241,11 @@ func SimulateFromSeed(
 	} else {
 		eventStats.Print(w)
 	}
+
+	/*for k, v := range r.Counter {
+		fmt.Println(k, v)
+	}
+	fmt.Println(len(r.Counter))*/
 
 	return false, exportedParams, nil
 }

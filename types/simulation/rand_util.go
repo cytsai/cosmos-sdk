@@ -150,7 +150,8 @@ func DeriveRand(r *rand.Rand) *rand.Rand {
 		ms[i] = rand.NewSource(r.Int63())
 	}
 
-	return rand.NewGuided(ms)
+	return rand.New(ms)
+	//return rand.NewGuided(ms)
 }
 
 type multiSource []rand.Source
