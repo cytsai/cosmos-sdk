@@ -21,5 +21,5 @@ type Config struct {
 
 	OnOperation   bool // run slow invariants every operation
 	AllInvariants bool // print all failed invariants if a broken invariant is found
-	Guided bool // TODO
+	Guide string // TODO
 }

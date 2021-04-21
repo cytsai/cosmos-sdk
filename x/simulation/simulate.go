@@ -60,8 +60,8 @@ func SimulateFromSeed(
 
 	fmt.Fprintf(w, "Starting SimulateFromSeed with randomness created with seed %d\n", int(config.Seed))
 	var r *rand.Rand
-	if config.Guided {
-		r = rand.NewGuided(rand.NewSource(config.Seed))
+	if config.Guide != "" {
+		r = rand.NewGuided(rand.NewSource(config.Seed), config.Guide)
 	} else {
 		r = rand.New(rand.NewSource(config.Seed))
 	}
