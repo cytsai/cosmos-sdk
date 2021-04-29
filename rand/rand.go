@@ -5,7 +5,9 @@ import (
 	"os"
         "fmt"
         "bufio"
+	"strings"
 	"runtime"
+	"strconv"
 )
 
 func printState(n int) {
@@ -23,16 +25,22 @@ func printState(n int) {
 }
 
 func (r *Rand) Intn(n int) int {
-	rand := r.base.Intn(n)
-	if r.guided {
-		printState(n)
-		action, err := r.actionReader.ReadString('\n')
-		if err != nil {
-			panic(err)
-		}
-		fmt.Print("ACTION " + action)
+	if !r.guided {
+		return r.base.Intn(n)
 	}
-	return rand
+	printState(n)
+	rand, err := r.guideRNG.ReadString('\n')
+	if err != nil {
+		panic(err)
+	}
+	//fmt.Printf("ACTION " + rand)
+	rand = strings.TrimSuffix(rand, "\n")
+	randInt, err := strconv.Atoi(rand)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("ACTION %d\n", randInt)
+	return randInt
 }
 
 func (r *Rand) Int63() int64 {
@@ -60,9 +68,9 @@ func (r *Rand) GetMathRand() *mrand.Rand {
 }
 
 type Rand struct {
-	base    *mrand.Rand
-	guided  bool
-	actionReader *bufio.Reader
+	base     *mrand.Rand
+	guided   bool
+	guideRNG *bufio.Reader
 }
 
 type Source    = mrand.Source
@@ -80,9 +88,9 @@ func New(src Source) *Rand {
 }
 
 func NewGuided(src Source, guide string) *Rand {
-	actionPipe, err := os.OpenFile(guide, os.O_RDONLY, 0400)
+	guidePipe, err := os.Open(guide) //File(guide, os.O_RDONLY, 0400)
 	if err != nil {
 		panic(err)
 	}
-	return &Rand{base: mrand.New(src), guided: true, actionReader: bufio.NewReader(actionPipe)}
+	return &Rand{base: mrand.New(src), guided: true, guideRNG: bufio.NewReader(guidePipe)}
 }
