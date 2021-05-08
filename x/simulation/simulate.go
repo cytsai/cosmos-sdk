@@ -62,6 +62,7 @@ func SimulateFromSeed(
 	var r *rand.Rand
 	if config.Guide != "" {
 		r = rand.NewGuided(rand.NewSource(config.Seed), config.Guide)
+		defer func() {fmt.Printf("COVERAGE %g\n", testing.Coverage())}()
 	} else {
 		r = rand.New(rand.NewSource(config.Seed))
 	}
@@ -241,11 +242,6 @@ func SimulateFromSeed(
 	} else {
 		eventStats.Print(w)
 	}
-
-	/*for k, v := range r.Counter {
-		fmt.Println(k, v)
-	}
-	fmt.Println(len(r.Counter))*/
 
 	return false, exportedParams, nil
 }

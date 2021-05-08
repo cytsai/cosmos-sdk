@@ -7,11 +7,14 @@ import (
         "bufio"
 	"strings"
 	"runtime"
+	"testing"
 	"strconv"
 )
 
 func printState(n int) {
-	fmt.Printf("\nSTATE %d ", n)
+	fmt.Printf("\n")
+	fmt.Printf("COVERAGE %g\n", testing.Coverage())
+	fmt.Printf("STATE %d ", n)
 	pc := make([]uintptr, 20)
 	frames := runtime.CallersFrames(pc[:(runtime.Callers(2, pc) - 2)])
 	for {
@@ -24,23 +27,26 @@ func printState(n int) {
 	fmt.Printf("\n")
 }
 
+func getInt(guideRNG *bufio.Reader) int64 {
+	s, err := guideRNG.ReadString('\n')
+	if err != nil {
+		panic(err)
+	}
+	n, err := strconv.ParseInt(strings.TrimSuffix(s, "\n"), 10, 64)
+	if err != nil {
+		panic(err)
+	}
+	return n
+}
+
 func (r *Rand) Intn(n int) int {
 	if !r.guided {
 		return r.base.Intn(n)
 	}
 	printState(n)
-	rand, err := r.guideRNG.ReadString('\n')
-	if err != nil {
-		panic(err)
-	}
-	//fmt.Printf("ACTION " + rand)
-	rand = strings.TrimSuffix(rand, "\n")
-	randInt, err := strconv.Atoi(rand)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Printf("ACTION %d\n", randInt)
-	return randInt
+	rand := int(getInt(r.guideRNG))
+	//fmt.Printf("ACTION %d\n", rand)
+	return rand
 }
 
 func (r *Rand) Int63() int64 {
@@ -88,7 +94,7 @@ func New(src Source) *Rand {
 }
 
 func NewGuided(src Source, guide string) *Rand {
-	guidePipe, err := os.Open(guide) //File(guide, os.O_RDONLY, 0400)
+	guidePipe, err := os.Open(guide)
 	if err != nil {
 		panic(err)
 	}
