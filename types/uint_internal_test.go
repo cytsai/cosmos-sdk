@@ -2,7 +2,7 @@ package types
 
 import (
 	"math/big"
-	"github.com/cosmos/cosmos-sdk/rand"
+	"github.com/cosmos/cosmos-sdk/simapp/rand"
 	"strconv"
 	"testing"
 

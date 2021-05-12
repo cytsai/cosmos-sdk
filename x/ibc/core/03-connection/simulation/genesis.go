@@ -1,7 +1,7 @@
 package simulation
 
 import (
-	"github.com/cosmos/cosmos-sdk/rand"
+	"github.com/cosmos/cosmos-sdk/simapp/rand"
 
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 	"github.com/cosmos/cosmos-sdk/x/ibc/core/03-connection/types"

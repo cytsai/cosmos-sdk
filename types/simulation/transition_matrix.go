@@ -1,6 +1,6 @@
 package simulation
 
-import "github.com/cosmos/cosmos-sdk/rand"
+import "github.com/cosmos/cosmos-sdk/simapp/rand"
 
 // TransitionMatrix is _almost_ a left stochastic matrix.  It is technically
 // not one due to not normalizing the column values.  In the future, if we want

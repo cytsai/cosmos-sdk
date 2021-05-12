@@ -1,7 +1,7 @@
 package keeper_test
 
 import (
-	"github.com/cosmos/cosmos-sdk/rand"
+	"github.com/cosmos/cosmos-sdk/simapp/rand"
 	"testing"
 	"time"
 

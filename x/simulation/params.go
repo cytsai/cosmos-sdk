@@ -3,7 +3,7 @@ package simulation
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/cosmos/cosmos-sdk/rand"
+	"github.com/cosmos/cosmos-sdk/simapp/rand"
 
 	abci "github.com/tendermint/tendermint/abci/types"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"

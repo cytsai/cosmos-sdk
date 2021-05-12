@@ -5,7 +5,7 @@ package simulation
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/cosmos/cosmos-sdk/rand"
+	"github.com/cosmos/cosmos-sdk/simapp/rand"
 	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"

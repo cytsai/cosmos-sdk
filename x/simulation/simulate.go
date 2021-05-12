@@ -3,7 +3,7 @@ package simulation
 import (
 	"fmt"
 	"io"
-	"github.com/cosmos/cosmos-sdk/rand"
+	"github.com/cosmos/cosmos-sdk/simapp/rand"
 	"os"
 	"os/signal"
 	"syscall"
@@ -62,7 +62,11 @@ func SimulateFromSeed(
 	var r *rand.Rand
 	if config.Guide != "" {
 		r = rand.NewGuided(rand.NewSource(config.Seed), config.Guide)
-		defer func() {fmt.Printf("COVERAGE %g\n", testing.Coverage())}()
+		defer func() {
+			if r.Interactive {
+				fmt.Printf("COVERAGE %g\n", testing.Coverage())
+			}
+		}()
 	} else {
 		r = rand.New(rand.NewSource(config.Seed))
 	}

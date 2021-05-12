@@ -47,7 +47,7 @@ func GetSimulatorFlags() {
 	flag.BoolVar(&FlagCommitValue, "Commit", false, "have the simulation commit")
 	flag.BoolVar(&FlagOnOperationValue, "SimulateEveryOperation", false, "run slow invariants every operation")
 	flag.BoolVar(&FlagAllInvariantsValue, "PrintAllInvariants", false, "print all invariants if a broken invariant is found")
-	flag.StringVar(&FlagGuide, "Guide", "", "TODO")
+	flag.StringVar(&FlagGuide, "Guide", "", "File of or named pipe for random numbers generated outside of the SDK")
 
 	// simulation flags
 	flag.BoolVar(&FlagEnabledValue, "Enabled", false, "enable the simulation")

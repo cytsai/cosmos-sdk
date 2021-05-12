@@ -2,7 +2,7 @@ package simulation
 
 import (
 	"fmt"
-	"github.com/cosmos/cosmos-sdk/rand"
+	"github.com/cosmos/cosmos-sdk/simapp/rand"
 
 	"github.com/cosmos/cosmos-sdk/types/simulation"
 )

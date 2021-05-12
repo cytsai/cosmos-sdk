@@ -3,7 +3,7 @@ package types_test
 import (
 	"math"
 	"math/big"
-	"github.com/cosmos/cosmos-sdk/rand"
+	"github.com/cosmos/cosmos-sdk/simapp/rand"
 	"testing"
 
 	"github.com/stretchr/testify/suite"
