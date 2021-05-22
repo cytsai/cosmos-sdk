@@ -72,6 +72,10 @@ func TestFullAppSimulation(t *testing.T) {
 	require.Equal(t, "SimApp", app.Name())
 
 	// run randomized simulation
+	if config.Guide != "" {
+		rand.SetGuide(config.Guide)
+		defer rand.PrintCoverage()
+	}
 	_, simParams, simErr := simulation.SimulateFromSeed(
 		t,
 		os.Stdout,
