@@ -26,7 +26,7 @@ func PrintCoverage() {
 	}
 }
 
-func printState(n int64) {
+func printState(n uint64) {
 	fmt.Printf("\n")
 	fmt.Printf("COVERAGE %g\n", testing.Coverage())
 	fmt.Printf("STATE %d ", n)
@@ -42,14 +42,14 @@ func printState(n int64) {
 	fmt.Printf("\n")
 }
 
-func guidedIntn(n int64) int64 {
+func guidedIntn(n uint64) uint64 {
 	if n <= 0 {
 		panic("invalid argument to guidedIntn")
 	}
 	if interactive {
 		printState(n)
 	}
-	var rand int64
+	var rand uint64
 	if _, err := fmt.Fscanf(guide, "%d\n", &rand); err != nil {
 		panic(err)
 	}
