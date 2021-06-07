@@ -16,31 +16,31 @@ func New(src Source) *Rand {
 }
 
 func (r *Rand) Intn(n int) int {
-	if guide == nil {
-		return r.base.Intn(n)
+	if guide != nil {
+		return int(guidedIntn(uint64(n)))
 	}
-	return int(guidedIntn(uint64(n)))
+	return r.base.Intn(n)
 }
 
 func (r *Rand) Int63n(n int64) int64 {
-	if guide == nil {
-		return r.base.Int63n(n)
+	if guide != nil {
+		return int64(guidedIntn(uint64(n)))
 	}
-	return int64(guidedIntn(uint64(n)))
+	return r.base.Int63n(n)
 }
 
 func (r *Rand) Int63() int64 {
-	if guide == nil {
-		return r.base.Int63()
+	if guide != nil {
+		return int64(guidedIntn(uint64(math.MaxInt64) + 1))
 	}
-	return int64(guidedIntn(uint64(math.MaxInt64) + 1))
+	return r.base.Int63()
 }
 
 func (r *Rand) Float64() float64 {
-	if guide == nil {
-		return r.base.Float64()
+	if guide != nil {
+		return guidedFloat()
 	}
-	return guidedFloat()
+	return r.base.Float64()
 }
 
 var Intn    = mrand.Intn

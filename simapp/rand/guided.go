@@ -4,7 +4,6 @@ import (
 	"os"
 	"fmt"
 	"runtime"
-	"testing"
 	"strings"
 )
 
@@ -18,17 +17,12 @@ func SetGuide(guidePath string) {
 	}
 	guide, _ = os.Open(guidePath)
 	interactive = !fi.Mode().IsRegular()
+	sortCoverKeys()
 }
 
-func PrintCoverage() {
-	if interactive {
-		fmt.Printf("COVERAGE %g\n", testing.Coverage())
-	}
-}
-
-func printState(n uint64) {
+func PrintState(n uint64) {
 	fmt.Printf("\n")
-	fmt.Printf("COVERAGE %g\n", testing.Coverage())
+	PrintCoverage()
 	fmt.Printf("STATE %d ", n)
 	pc := make([]uintptr, 32)
 	frames := runtime.CallersFrames(pc[:(runtime.Callers(3, pc) - 2)])
@@ -36,10 +30,11 @@ func printState(n uint64) {
 		frame, more := frames.Next()
 		fmt.Printf("%s;", strings.TrimPrefix(frame.Function, "github.com/cosmos/cosmos-sdk/"))
 		if !more {
+			fmt.Printf(" ")
 			break
 		}
 	}
-	fmt.Printf("\n")
+	PrintCoverageMap()
 }
 
 func guidedIntn(n uint64) uint64 {
@@ -47,7 +42,7 @@ func guidedIntn(n uint64) uint64 {
 		panic("invalid argument to guidedIntn")
 	}
 	if interactive {
-		printState(n)
+		PrintState(n)
 	}
 	var rand uint64
 	if _, err := fmt.Fscanf(guide, "%d\n", &rand); err != nil {
@@ -63,7 +58,7 @@ func guidedIntn(n uint64) uint64 {
 
 func guidedFloat() float64 {
 	if interactive {
-		printState(0)
+		PrintState(0)
 	}
 	var rand float64
 	if _, err := fmt.Fscanf(guide, "%g\n", &rand); err != nil {
