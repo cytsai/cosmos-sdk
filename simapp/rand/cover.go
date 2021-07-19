@@ -13,21 +13,15 @@ var cover testing.Cover
 var coverKeys []string
 var coverMap big.Int
 
-func sortCoverKeys() {
-	t := 0
-	for k, C := range cover.Counters {
-		coverKeys = append(coverKeys, k)
-		t += len(C)
-	}
-	//coverMap = make([]uint32, t)
-	sort.Strings(coverKeys)
-}
-
 func getCoverage() float32 {
+	if coverKeys == nil {
+		for k, _ := range cover.Counters {
+			coverKeys = append(coverKeys, k)
+		}
+		sort.Strings(coverKeys)
+	}
 	p, t := 0, 0
-	coverMap.SetInt64(0)
 	for _, k := range coverKeys {
-		//copy(coverMap[t:], cover.Counters[k])
 		for _, c := range cover.Counters[k] {
 			if c > 0 {
 				p++
@@ -44,10 +38,10 @@ func getCoverage() float32 {
 }
 
 func PrintCoverage() {
-	fmt.Printf("COVERAGE %g\n", getCoverage())
+	//fmt.Printf("COVERAGE %g\n", getCoverage())
+	fmt.Printf("COVERAGE %g\n", testing.Coverage())
 }
 
 func PrintCoverageMap() {
 	fmt.Println(coverMap.Text(16))
-	//fmt.Println()
 }

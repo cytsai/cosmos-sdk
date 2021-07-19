@@ -17,7 +17,6 @@ func SetGuide(guidePath string) {
 	}
 	guide, _ = os.Open(guidePath)
 	interactive = !fi.Mode().IsRegular()
-	sortCoverKeys()
 }
 
 func PrintState(n uint64) {
@@ -28,13 +27,13 @@ func PrintState(n uint64) {
 	frames := runtime.CallersFrames(pc[:(runtime.Callers(3, pc) - 2)])
 	for {
 		frame, more := frames.Next()
-		fmt.Printf("%s;", strings.TrimPrefix(frame.Function, "github.com/cosmos/cosmos-sdk/"))
+		fmt.Printf("%s.%d;", strings.TrimPrefix(frame.Function, "github.com/cosmos/cosmos-sdk/"), frame.Line)
 		if !more {
 			fmt.Printf(" ")
 			break
 		}
 	}
-	PrintCoverageMap()
+	fmt.Printf("\n")
 }
 
 func guidedIntn(n uint64) uint64 {
