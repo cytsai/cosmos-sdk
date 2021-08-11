@@ -1,7 +1,7 @@
 package rand
 
 import (
-	"math"
+	//"math"
 	mrand "math/rand"
 )
 
@@ -30,9 +30,9 @@ func (r *Rand) Int63n(n int64) int64 {
 }
 
 func (r *Rand) Int63() int64 {
-	if guide != nil {
+	/*if guide != nil {
 		return int64(guidedIntn(uint64(math.MaxInt64) + 1))
-	}
+	}*/
 	return r.base.Int63()
 }
 
