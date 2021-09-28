@@ -1,0 +1,1 @@
+`simapp/rand` implements the custom RNG library that routes RNG requests (with call stack and coverage information) to an external RL agent and parses the agent's (logged) actions from a named pipe (or static file).
