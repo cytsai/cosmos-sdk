@@ -3,8 +3,8 @@ package rand
 import (
 	"os"
 	"fmt"
-	"runtime"
-	"strings"
+	//"runtime"
+	//"strings"
 )
 
 var guide *os.File
@@ -17,13 +17,14 @@ func SetGuide(guidePath string) {
 	}
 	guide, _ = os.Open(guidePath)
 	interactive = !fi.Mode().IsRegular()
+	initCoverage()
 }
 
 func PrintState(n uint64) {
 	fmt.Printf("\n")
 	PrintCoverage()
 	fmt.Printf("STATE %d ", n)
-	pc := make([]uintptr, 32)
+	/*pc := make([]uintptr, 32)
 	frames := runtime.CallersFrames(pc[:(runtime.Callers(3, pc) - 2)])
 	for {
 		frame, more := frames.Next()
@@ -32,8 +33,8 @@ func PrintState(n uint64) {
 			fmt.Printf(" ")
 			break
 		}
-	}
-	fmt.Printf("\n")
+	}*/
+	PrintCoverageStatus()
 }
 
 func guidedIntn(n uint64) uint64 {
