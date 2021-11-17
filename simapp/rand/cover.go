@@ -30,22 +30,17 @@ func addUint64(h uint64, u uint64) uint64 {
 var cover testing.Cover
 var coverKeys []string
 var coverHash uint64
-var total float32
+var total int
 
 func initCoverage() {
-	t := 0
 	for k, counter := range cover.Counters {
 		coverKeys = append(coverKeys, k)
-		t += len(counter)
+		total += len(counter)
 	}
 	sort.Strings(coverKeys)
-	total = float32(t)
 }
 
-func getCoverage() float32 {
-	if total == 0.0 {
-		return 0.0
-	}
+func getCoverage() int {
 	p := 0
 	coverHash = offset64
 	for _, k := range coverKeys {
@@ -56,12 +51,11 @@ func getCoverage() float32 {
 			}
 		}
 	}
-	return float32(p) / total
+	return p
 }
 
 func PrintCoverage() {
-	//fmt.Printf("COVERAGE %g\n", testing.Coverage())
-	fmt.Printf("COVERAGE %g\n", getCoverage())
+	fmt.Printf("COVERAGE %d\n", getCoverage())
 }
 
 func PrintCoverageStatus() {

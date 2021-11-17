@@ -3,8 +3,8 @@ package rand
 import (
 	"os"
 	"fmt"
-	//"runtime"
-	//"strings"
+	"runtime"
+	"strings"
 )
 
 var guide *os.File
@@ -24,7 +24,7 @@ func PrintState(n uint64) {
 	fmt.Printf("\n")
 	PrintCoverage()
 	fmt.Printf("STATE %d ", n)
-	/*pc := make([]uintptr, 32)
+	pc := make([]uintptr, 32)
 	frames := runtime.CallersFrames(pc[:(runtime.Callers(3, pc) - 2)])
 	for {
 		frame, more := frames.Next()
@@ -33,7 +33,7 @@ func PrintState(n uint64) {
 			fmt.Printf(" ")
 			break
 		}
-	}*/
+	}
 	PrintCoverageStatus()
 }
 
