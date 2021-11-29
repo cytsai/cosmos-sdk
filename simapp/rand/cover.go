@@ -5,53 +5,55 @@ import (
 	"sort"
 	"testing"
 	_ "unsafe"
+	mrand "math/rand"
 )
 
-// from https://github.com/segmentio/fasthash
 const (
-	offset64 = uint64(14695981039346656037)
-	prime64  = uint64(1099511628211)
+	BINS = 64
+	BITS = 16
 )
 
-func addUint64(h uint64, u uint64) uint64 {
-	/*
-	h = (h ^ ((u >> 56) & 0xFF)) * prime64
-	h = (h ^ ((u >> 48) & 0xFF)) * prime64
-	h = (h ^ ((u >> 40) & 0xFF)) * prime64
-	h = (h ^ ((u >> 32) & 0xFF)) * prime64
-	h = (h ^ ((u >> 24) & 0xFF)) * prime64
-	h = (h ^ ((u >> 16) & 0xFF)) * prime64*/
-	h = (h ^ ((u >>  8) & 0xFF)) * prime64
-	h = (h ^ ( u        & 0xFF)) * prime64
-	return h
+var perm []int
+var hash []int
+
+func updateHash(i int) {
+	b := i % BINS
+	j := i / BINS
+	if j > hash[b] {
+		hash[b] = j
+	}
 }
 
 //go:linkname cover testing.cover
 var cover testing.Cover
 var coverKeys []string
-var coverHash uint64
-var total int
+var max int
 
 func initCoverage() {
 	for k, counter := range cover.Counters {
 		coverKeys = append(coverKeys, k)
-		total += len(counter)
+		max += len(counter)
 	}
 	sort.Strings(coverKeys)
+	perm = mrand.New(mrand.NewSource(0)).Perm(max)
+	hash = make([]int, BINS)
+	for i := range hash {
+		hash[i] = -1
+	}
 }
 
 func getCoverage() int {
-	p := 0
-	coverHash = offset64
+	i, c := 0, 0
 	for _, k := range coverKeys {
-		for i, c := range cover.Counters[k] {
-			if c > 0 {
-				p++
-				coverHash = addUint64(coverHash, uint64(i))
+		for _, b := range cover.Counters[k] {
+			if b > 0 {
+				c++
+				updateHash(perm[i])
 			}
+			i++
 		}
 	}
-	return p
+	return c
 }
 
 func PrintCoverage() {
@@ -59,5 +61,8 @@ func PrintCoverage() {
 }
 
 func PrintCoverageStatus() {
-	fmt.Printf("%016X\n", coverHash)
+	for _, v := range hash {
+		fmt.Printf("%d,", v % BITS)
+	}
+	fmt.Printf("\n")
 }
